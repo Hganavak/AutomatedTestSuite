@@ -1,3 +1,34 @@
+<?php
+
+	if(isset($_POST['submit'])) {
+	    createTestCase($_POST['activityName'], $_POST['testMethod']);
+	    compileActivity($_POST['activityName']);
+	}
+
+	/**
+	 * Constructs a file from the string input
+	 */
+	function createTestCase($activityName, $testMethod) {
+    		$handle = fopen('./activities/'.$activityName.'.java', 'w') or die('Could not create activity');
+		fwrite($handle, $testMethod);
+	} 
+
+	/**
+	 * Compiles the full test class
+	 */
+	function compileActivity($activityName) {
+	    $code = 0;
+	    exec('javac *.java 2>&1', $output, $code);
+
+	    if($code) {
+		echo "<pre style='background-color: yellow; color: red; text-align: center'>An error occured: $output[0]</pre>";
+	    } else {
+		echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></pre>";
+	    }
+
+	}
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -15,13 +46,13 @@ Use the following form to generate a new test activity.
 
 </p>
 
-<form>
+<form method="POST">
 	<fieldset>
 		<legend><h4>Create Test Activity</h4></legend>
 		<table style="width:100%; color: #000; text-align: left">
 			<colgroup>
-				<col span="1" style="width: 25%;">
-				<col span="1" style="width: 65%">
+				<col span="1" style="width: 15%;">
+				<col span="1" style="width: 75%">
 			</colgroup>
 			<tr>
 				<td><label for="activityName">Activity Name:</label></td>
@@ -58,6 +89,8 @@ private void testMethod(Object a, Object b) {
 				<td> </td><td><input type="submit" value=" Create Activity " name="submit"></td>
 			</tr>
 		</table>
+
+
 	</fieldset>
 </form>
 </div>
