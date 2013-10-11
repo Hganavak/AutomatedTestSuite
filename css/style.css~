@@ -1,0 +1,17 @@
+#content {
+	color: #000;
+	text-align: center;
+	width: 60%;
+	height: 100%;
+	background-color: #FFFFCC;
+	border-width: .2em;
+	border-style: solid;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+}
+body {
+	color: #FFF;
+	background-color: #0F0F1F;
+	font-family: Sans-serif;
+}
