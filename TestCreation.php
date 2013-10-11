@@ -8,9 +8,10 @@
 	/**
 	 * Constructs a file from the string input
 	 */
-	function createTestCase($activityName, $testMethod) {
-    		$handle = fopen('./activities/'.$activityName.'.java', 'w') or die('Could not create activity');
-		fwrite($handle, $testMethod);
+function createTestCase($activityName, $testMethod) {
+    		exec("copy .\activities\TestCase.java .\activities\\$activityName".'.java');
+    		$handle = fopen('./activities/'.$activityName.'.java', 'a') or die('Could not create activity');
+		fwrite($handle, "\n".$testMethod."\n}\n");
 	} 
 
 	/**
@@ -73,7 +74,7 @@ Use the following form to generate a new test activity.
 				<td><label for="testMethod">Test Method Code:</label></td>
 				<td>
 					<textarea name="testMethod" cols="40" rows="10" style="width: 100%">
-private void testMethod(Object a, Object b) {
+private void testMethod(String[] args) {
 
 	numTestCases(#); //Enter total number of test cases
 
