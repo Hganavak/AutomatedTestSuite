@@ -1,18 +1,23 @@
 <?php
 
+    require('TestTemplate.php');
+
 	if(isset($_POST['submit'])) {
 	    createTestCase($_POST['activityName'], $_POST['testMethod']);
-	    compileActivity($_POST['activityName']);
+        compileActivity($_POST['activityName']);
 	}
 
-	/**
-	 * Constructs a file from the string input
-	 */
-function createTestCase($activityName, $testMethod) {
-    		exec("copy .\activities\TestCase.java .\activities\\$activityName".'.java');
-    		$handle = fopen('./activities/'.$activityName.'.java', 'a') or die('Could not create activity');
-		fwrite($handle, "\n".$testMethod."\n}\n");
-	} 
+    /**
+     * Creates a Java class
+     */
+    function createTestCase($activityName, $testMethod) {
+        $handle = fopen('./activities/'.$activityName.'.java', 'w') or die('Could not create activity');
+        $template = new TestCaseTemplate();
+        $template->nameClass($activityName);
+        $template->setTestMethod($testMethod);
+        $template->createClass();
+        fwrite($handle, $template->classString);
+    }
 
 	/**
 	 * Compiles the full test class
@@ -30,7 +35,7 @@ function createTestCase($activityName, $testMethod) {
             }
             echo "</pre>";
 	    } else {
-		echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></p>";
+		echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></pre>";
 	    }
 
 	}
@@ -79,16 +84,18 @@ Use the following form to generate a new test activity.
 			<tr>
 				<td><label for="testMethod">Test Method Code:</label></td>
 				<td>
-					<textarea name="testMethod" cols="40" rows="10" style="width: 100%">
-private void testMethod(String[] args) {
+					<textarea name="testMethod" cols="40" rows="12" style="width: 100%">
+private static void testMethod(String[] args) {
+                        
+    numTestCases(2); //Enter total number of test cases
+    int a = Integer.parseInt(args[0]); int b = Integer.parseInt(args[1]);
 
-	numTestCases(#); //Enter total number of test cases
-
-	if(Object a.equals("Example") || Object b != 0) {
-		tested(#); //Test case achieved
-	}
-
-
+    if(a != 0 && b == 0) {
+        tested(0); //Division by 0
+    } else {
+        tested(1); //'Normal' test case                  
+    }
+                        
 }					</textarea>
 				</td>
 			</tr>

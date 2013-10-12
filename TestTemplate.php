@@ -1,21 +1,44 @@
 <?php
 
-    //Contains textual representations of class
+    //Contains textual representations of Java class
+    class TestCaseTemplate {
     
-    /*** BEGIN CLASS HEADER ***/
-    $className = "Undefined";
-    $classHeader = "public class $className";    
-    function nameClass($name) {
-        $className = $name;
+        private $classHeader;
+        private $testCasesDefinition;
+        
+        private $mainDefinition;
+        private $testCasesMethodDefinition;
+        private $testedMethodDefinition;
+        
+        private $testMethodString;
+        
+        public $classString;
+        
+        public function __construct() {
+            $this->testCasesDefinition          = "private static int testCases;";   
+            $this->mainDefinition               = "public static void main(String[] args) { testMethod(args); }";
+            $this->testCasesMethodDefinition    = "private static void numTestCases(int numTestCases) { testCases = numTestCases; }";
+            $this->testedMethodDefinition       = "private static void tested(int testNumber) { System.out.println(testNumber); }";
+        }
+        
+        function nameClass($name) {
+            $this->classHeader = "public class $name {";
+        }
+    
+        function setTestMethod($testMethodStringParam) {
+            $this->testMethodString = $testMethodStringParam;   
+        }
+    
+        //Construct Class String
+        function createClass() {
+            $this->classString = $this->classHeader . "\n" .
+            $this->testCasesDefinition . "\n" .
+            $this->mainDefinition . "\n" .
+            $this->testCasesMethodDefinition . "\n" .
+            $this->testedMethodDefinition . "\n" .
+            $this->testMethodString . "\n" .
+            "}";            
+        }
+
     }
-    /*** END CLASS HEADER ***/
-
-    /*** BEGIN testCases ***/
-    $testCasesDefinition = "private int testCases;";
-    $testCasesMethodDefinition = "private void tested(int $testNumber) { this.testNumber = testNumber; }";    
-    /*** END testCases ***/
-
-
-
-
 ?>
