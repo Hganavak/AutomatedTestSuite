@@ -19,12 +19,18 @@ function createTestCase($activityName, $testMethod) {
 	 */
 	function compileActivity($activityName) {
 	    $code = 0;
-	    exec('javac *.java 2>&1', $output, $code);
-
+	    #exec('javac *.java 2>&1', $output, $code);
+        chdir('activities');
+        exec('javac *.java 2>&1', $output, $code);
+        
 	    if($code) {
-		echo "<pre style='background-color: yellow; color: red; text-align: center'>An error occured: $output[0]</pre>";
+		  echo "<p style='background-color: yellow; color: red; text-align: center'>An error occured: ";
+          for($i = 0; $i < count($output); $i++) {
+            echo "<br />$output[$i]";
+            }
+            echo "</pre>";
 	    } else {
-		echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></pre>";
+		echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></p>";
 	    }
 
 	}
