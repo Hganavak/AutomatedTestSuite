@@ -35,10 +35,37 @@
             }
             echo "</pre>";
 	    } else {
-		echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></pre>";
+            echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Activity Compiled Successfully</b></pre>";
+            //Create database entry
+            createDBEntry();
 	    }
-
 	}
+
+    /**
+     * Enter database values if compile is successful
+     */
+    function createDbEntry() {
+        $con = mysqli_connect("localhost", "root"); //Create DB connection
+        mysqli_select_db($con, "automatedtestsuite");
+        
+        if(mysqli_connect_errno($con)) {
+            echo "Failed to connect to database";   
+        }
+        
+        //Perform the insert
+        $sql = "INSERT INTO Activities (ActivityName, ExampleInput, ExampleOutput, Description, StudentCode) VALUES ('$_POST[activityName]', '$_POST[exampleInput]', '$_POST[exampleOutput]', '$_POST[description]', '$_POST[studentCode]')";
+        
+//        $sql="INSERT INTO Persons (FirstName, LastName, Age) VALUES ('$_POST[firstname]','$_POST[lastname]','$_POST[age]')";
+        
+        if (!mysqli_query($con, $sql)) {
+            die('Error occured creating database entry: ' . mysqli_error($con));
+        }
+        
+        echo "<pre style='background-color: lime; color: yellow; text-align: center'><b>Database Entry Created</b></pre>";
+        
+        mysqli_close($con); //Close the DB connection
+    }
+
 ?>
 
 <!DOCTYPE HTML>
@@ -81,6 +108,10 @@ Use the following form to generate a new test activity.
 				<td><label for="description">Description:</label></td>
 				<td><textarea name="description" cols="40" rows="3" style="width: 100%"></textarea></td> 
 			</tr>
+            <tr>
+            <td><label for="studentCode">Student Code:</label></td>
+				<td><textarea name="studentCode" cols="40" rows="8" style="width: 100%">The method students will see (not actually executed)</textarea></td> 
+            </tr>
 			<tr>
 				<td><label for="testMethod">Test Method Code:</label></td>
 				<td>
