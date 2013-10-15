@@ -1,9 +1,42 @@
 <?php
 
+    //Pretend student is logged in
+    $studentID = 1;
+
     require('ActivityDetails.php');
+
+    $con = mysqli_connect("localhost", "root"); //Create DB connection
+    mysqli_select_db($con, "automatedtestsuite");
 
     //Create this activity object
     $activity = new ActivityDetails($_GET['activityID']);
+
+    //Simple function that checks if a test case has already been achieved by a student
+    function achieved($aID, $sID, $testCase) {
+         //Establish DB connection
+        $con = mysql_connect("localhost", "root"); //Create DB connection
+        mysql_select_db("automatedtestsuite", $con);
+        
+        $query = mysql_query("SELECT TestCase FROM activityanswers WHERE StudentID='$sID' AND ActivityID='$aID' AND TestCase='$testCase'", $con);
+//        $result = mysqli_fetch_array($query);
+        
+        if(mysql_num_rows($query) > 0) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    //Simple function that logs a new ActivityAnswer for a student
+    function achieve($aID, $sID, $testCase, $justification) {
+          //Establish DB connection
+        $con = mysqli_connect("localhost", "root"); //Create DB connection
+        mysqli_select_db($con, "automatedtestsuite");
+        
+        if(!mysqli_query($con, "INSERT INTO activityanswers VALUES ('$aID', '$sID', '$testCase', '$justification')")) {
+         echo "Error occured creating test case: " . mysqli_error($con);   
+        }
+     }
 
 ?>
 <!DOCTYPE HTML>
@@ -87,7 +120,13 @@
         echo "'>";
        
         if($code == 0) {
-         echo "You achieved test case #$output[0]";   
+            //Check if student has already achieved this test case
+            if(achieved($_GET['activityID'], $studentID, $output[0])) {
+                echo "You have already done this test case";   
+            } else {
+                achieve($_GET['activityID'], $studentID, $output[0], $_POST['justification']);
+                echo "Congratulations! You achieved test case #$output[0]";  
+            }         
         } else {
          echo "You did not achieve any test cases";   
         }

@@ -3,6 +3,7 @@
     //Contains textual representations of Java class
     class TestCaseTemplate {
     
+        //Activity Fields
         private $classHeader;
         private $testCasesDefinition;
         
