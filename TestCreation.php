@@ -72,7 +72,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>Test Creation</title><F5>
+	<title>Test Creation</title>
 </head>
 
 <body>
