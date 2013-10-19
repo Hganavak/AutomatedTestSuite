@@ -88,7 +88,7 @@ Use the following form to generate a new test activity.
 <form method="POST">
 	<fieldset>
 		<legend><h4>Create Test Activity</h4></legend>
-		<table style="width:100%; color: #000; text-align: left">
+		<table style="width:100%; text-align: left">
 			<colgroup>
 				<col span="1" style="width: 15%;">
 				<col span="1" style="width: 75%">

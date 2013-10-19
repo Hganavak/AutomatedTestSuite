@@ -1,19 +1,39 @@
 #content {
-	color: #000;
+	color: #35586C;
 	text-align: center;
-	width: 60%;
+	width: 70%;
 	background-color: #FFFFCC;
 	border-width: .2em;
 	border-style: solid;
-	border-radius: 8px;
+	border-radius: 35px;
 	margin-left: auto;
 	margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 	padding: 20px;
-    background-image:url('../images/background2.jpg');
-    background-repeat:repeat;
+    background-color: #CCFFF;
+    border-color: #FFF;
+    background-image:url('../images/light-blue-background.jpg');
+    background-repeat: repeat;
 }
 body {
-	color: #FFF;
-	background-color: #0F0F1F;
-	font-family: Sans-serif;
+	color: #35586C;
+	background-color: black;
+    font-family:sans-serif;
+    background-image:url('../images/cloud_cartoon.jpg');
+    
+  
+}
+
+h1, h2, h3, h4 {
+ color: #0EBFE9;   <!--#ABE7FF-->
+}
+
+a, a:visited, a:active {
+    color: blue;
+}
+
+fieldset {
+	color: #35586C;
+    border-radius: 15px;    
 }

@@ -53,13 +53,13 @@
 
 <fieldset style="text-align: left"> 
     <legend><h4>Details</h4></legend>
-<table style="width:100%; color: #000; text-align: left">
+<table style="width:100%; text-align: left">
 <colgroup>
     <col span="1" style="width: 15%;">
 	<col span="1" style="width: 75%">
 </colgroup>
 <tr>
-<td>Description: </td><td><textarea readonly cols="40" rows="3" style="width: 100%"><?php echo $activity->description; ?>" style="width: 100%"></textarea></td>
+<td>Description: </td><td><textarea readonly cols="40" rows="3" style="width: 100%"><?php echo $activity->description; ?></textarea></td>
 </tr>
 <tr>
 <td>Code:</td><td><textarea readonly cols="40" rows="8" style="width: 100%"><?php echo $activity->studentCode; ?></textarea></td>
@@ -81,7 +81,7 @@
     <legend><h4>Test Case</h4></legend>
 <form method="POST">
     
-<table style="width:100%; color: #000; text-align: left">
+<table style="width:100%; text-align: left">
 <colgroup>
     <col span="1" style="width: 15%;">
 	<col span="1" style="width: 75%">
